@@ -1,6 +1,7 @@
 package net.imglib2.matrix.shootout.mastodon;
 
 
+import org.mastodon.collection.RefList;
 import org.mastodon.pool.BufferMappedElement;
 import org.mastodon.pool.BufferMappedElementArray;
 import org.mastodon.pool.Pool;
@@ -31,12 +32,13 @@ public class Vector3fPool extends Pool<Vector3f, BufferMappedElement >
 
 	public Vector3fPool(ByteBuffer bb)
 	{
-		super( bb.limit() / 12, new Vector3fLayout(), Vector3f.class, SingleArrayMemPool.factory( BufferMappedElementArray.wrappingFactory(bb) ) );
+		super( 0, new Vector3fLayout(), Vector3f.class, BufferMappedElementArray.wrappingMemPoolFactory( bb ) );
 		this.vertexLayout = new Vector3fLayout();// we need to make these twice
 		position = new FloatArrayAttribute<>( vertexLayout.position, this );
-		for( int k = 0; k < bb.limit() / 12; k++ ) {
-			this.create();
-		}
+
+//		for( int k = 0; k < bb.limit() / 12; k++ ) {
+//			this.create();
+//		}
 	}
 
 	public Vector3f create()
@@ -67,5 +69,10 @@ public class Vector3fPool extends Pool<Vector3f, BufferMappedElement >
 		final SingleArrayMemPool< BufferMappedElementArray, ? > memPool = ( SingleArrayMemPool< BufferMappedElementArray, ? > ) getMemPool();
 		final BufferMappedElementArray dataArray =  memPool.getDataArray();
 		return dataArray.getBuffer().asFloatBuffer();
+	}
+
+	public RefList< Vector3f > asList()
+	{
+		return new PoolAsList<>( this, this::size );
 	}
 }

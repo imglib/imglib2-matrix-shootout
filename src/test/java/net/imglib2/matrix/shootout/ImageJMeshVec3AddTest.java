@@ -14,15 +14,22 @@ public class ImageJMeshVec3AddTest extends AbstractVec3FAddTest
 	{
 		//Vector3fPool vertex3Pool = new Vector3fPool();
 
-		final RefList< Vector3f > A = new RefArrayList<>( new Vector3fPool( bufA.getBytes() ) );
-		final RefList< Vector3f > B = new RefArrayList<>( new Vector3fPool( bufB.getBytes() ) );
-		final RefList< Vector3f > C = new RefArrayList<>( new Vector3fPool( bufC.getBytes() ) );
+
+        Vector3fPool poolA = new Vector3fPool(bufA.getBytes());
+        Vector3fPool poolB = new Vector3fPool(bufB.getBytes());
+        Vector3fPool poolC = new Vector3fPool(bufC.getBytes());
+
+        //System.out.println( "FloatBuffer limit: " + poolA.getFloatBuffer().limit() );
+
+		final RefList< Vector3f > A = poolA.asList();
+		final RefList< Vector3f > B = poolB.asList();
+		final RefList< Vector3f > C = poolC.asList();
 
 		final Vector3f ref1 = A.createRef();
 		final Vector3f ref2 = A.createRef();
 		final Vector3f ref3 = A.createRef();
 
-		System.out.println( "A size: " + A.size() );
+		//System.out.println( "A size: " + A.size() );
 
 		final int size = A.size();
 		for ( int i = 0; i < size; ++i )
@@ -30,7 +37,7 @@ public class ImageJMeshVec3AddTest extends AbstractVec3FAddTest
 			final Vector3f a = A.get( i, ref1 );
 			final Vector3f b = B.get( i, ref2 );
 			final Vector3f c = C.get( i, ref3 );
-			System.out.println( "A: " + a + " B: " + b + " C: " + c );
+			//System.out.println( "A: " + a + " B: " + b + " C: " + c );
 			for ( int d = 0; d < 3; ++d )
 				c.setDoublePosition( a.getDoublePosition( d ) + b.getDoublePosition( d ), d );
 		}
