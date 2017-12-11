@@ -1,16 +1,13 @@
-package net.imglib2.matrix.shootout;
+package net.imglib2.matrix.shootout.mastodon;
 
-import net.imglib2.matrix.shootout.mastodon.Vector3f;
-import net.imglib2.matrix.shootout.mastodon.Vector3fPool;
+import net.imglib2.matrix.shootout.AbstractVec3fAddTest;
+import net.imglib2.matrix.shootout.Vec3fBuffer;
 import org.mastodon.collection.RefList;
-import org.mastodon.collection.ref.RefArrayList;
 
-import static net.imglib2.matrix.shootout.Vec3DBuffer.vlen;
-
-public class ImageJMeshVec3AddTest extends AbstractVec3FAddTest
+public class ImageJMeshVec3fAddTest extends AbstractVec3fAddTest
 {
 	@Override
-	public void addAsVec3( final Vec3FBuffer bufA, final Vec3FBuffer bufB, final Vec3FBuffer bufC )
+	public void addAsVec3( final Vec3fBuffer bufA, final Vec3fBuffer bufB, final Vec3fBuffer bufC )
 	{
 		//Vector3fPool vertex3Pool = new Vector3fPool();
 

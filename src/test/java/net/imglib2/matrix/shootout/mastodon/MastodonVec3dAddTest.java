@@ -1,13 +1,13 @@
-package net.imglib2.matrix.shootout;
+package net.imglib2.matrix.shootout.mastodon;
 
-import net.imglib2.matrix.shootout.mastodon.Vector3d;
-import net.imglib2.matrix.shootout.mastodon.Vector3dPool;
+import net.imglib2.matrix.shootout.AbstractVec3dAddTest;
+import net.imglib2.matrix.shootout.Vec3dBuffer;
 import org.mastodon.collection.RefList;
 
-public class MastodonVec3AddTest extends AbstractVec3AddTest
+public class MastodonVec3dAddTest extends AbstractVec3dAddTest
 {
 	@Override
-	public void addAsVec3( final Vec3DBuffer bufA, final Vec3DBuffer bufB, final Vec3DBuffer bufC )
+	public void addAsVec3( final Vec3dBuffer bufA, final Vec3dBuffer bufB, final Vec3dBuffer bufC )
 	{
 		// Something like this ...
 

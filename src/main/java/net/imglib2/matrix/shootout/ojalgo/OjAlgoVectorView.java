@@ -1,4 +1,4 @@
-package net.imglib2.matrix.shootout;
+package net.imglib2.matrix.shootout.ojalgo;
 
 import java.nio.DoubleBuffer;
 

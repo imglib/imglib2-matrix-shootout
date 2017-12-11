@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.DoubleBuffer;
 
-public class Vec3DBuffer
+public class Vec3dBuffer
 {
 	public static final int vlen = 3;
 
@@ -14,7 +14,7 @@ public class Vec3DBuffer
 
 	final DoubleBuffer doubles;
 
-	public Vec3DBuffer( final int size )
+	public Vec3dBuffer( final int size )
 	{
 		this.size = size;
 		final int nbytes = Double.BYTES * vlen * size;
