@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.scijava</groupId>
+		<artifactId>pom-scijava</artifactId>
+		<version>17.1.1</version>
+	</parent>
+
+	<groupId>net.imglib2</groupId>
+	<artifactId>imglib2-matrix-shootout</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<name>matrix library experiments and benchmarks</name>
+	<description>matrix library experiments and benchmarks</description>
+	<inceptionYear>2017</inceptionYear>
+
+	<properties>
+		<enforcer.skip>true</enforcer.skip>
+		<package-name>net.imglib2.matrix</package-name>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jmh.version>1.19</jmh.version>
+		<javac.target>1.8</javac.target>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>tpietzsch</id>
+			<name>Tobias Pietzsch</name>
+			<url>http://imagej.net/User:Pietzsch</url>
+			<roles>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+		<!--
+		NB: Need at least one element to override the parent.
+		See: https://issues.apache.org/jira/browse/MNG-5220
+		-->
+		<contributor>
+			<name>None</name>
+		</contributor>
+	</contributors>
+	
+	<repositories>
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<scm>
+		<connection>scm:git:git://github.com/imglib/imglib2-matrix-shootout</connection>
+		<developerConnection>scm:git:git@github.com:imglib/imglib2-matrix-shootout</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/imglib/imglib2-matrix-shootout</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/imglib/imglib2-matrix-shootout/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/imglib/imglib2-matrix-shootout</url>
+	</ciManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>${jmh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>${jmh.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.imglib2</groupId>
+			<artifactId>imglib2</artifactId>
+			<version>4.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mastodon</groupId>
+			<artifactId>mastodon-collection</artifactId>
+			<version>1.0.0-beta-9</version>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gov.nist.math</groupId>
+			<artifactId>jama</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
