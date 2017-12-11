@@ -1,33 +1,36 @@
 package net.imglib2.matrix.shootout;
 
-import net.imagej.mesh.Vertex3;
-import net.imagej.mesh.Vertex3Pool;
+import net.imglib2.matrix.shootout.mastodon.Vector3f;
+import net.imglib2.matrix.shootout.mastodon.Vector3fPool;
 import org.mastodon.collection.RefList;
 import org.mastodon.collection.ref.RefArrayList;
 
 import static net.imglib2.matrix.shootout.Vec3DBuffer.vlen;
 
-public class ImageJMeshVec3AddTest extends AbstractVec3AddTest
+public class ImageJMeshVec3AddTest extends AbstractVec3FAddTest
 {
 	@Override
-	public void addAsVec3( final Vec3DBuffer bufA, final Vec3DBuffer bufB, final Vec3DBuffer bufC )
+	public void addAsVec3( final Vec3FBuffer bufA, final Vec3FBuffer bufB, final Vec3FBuffer bufC )
 	{
-		//Vertex3Pool vertex3Pool = new Vertex3Pool();
+		//Vector3fPool vertex3Pool = new Vector3fPool();
 
-		final RefList< Vertex3 > A = new RefArrayList<>( new Vertex3Pool( bufA.getBytes() ) );
-		final RefList< Vertex3 > B = new RefArrayList<>( new Vertex3Pool( bufB.getBytes() ) );
-		final RefList< Vertex3 > C = new RefArrayList<>( new Vertex3Pool( bufC.getBytes() ) );
+		final RefList< Vector3f > A = new RefArrayList<>( new Vector3fPool( bufA.getBytes() ) );
+		final RefList< Vector3f > B = new RefArrayList<>( new Vector3fPool( bufB.getBytes() ) );
+		final RefList< Vector3f > C = new RefArrayList<>( new Vector3fPool( bufC.getBytes() ) );
 
-		final Vertex3 ref1 = A.createRef();
-		final Vertex3 ref2 = A.createRef();
-		final Vertex3 ref3 = A.createRef();
+		final Vector3f ref1 = A.createRef();
+		final Vector3f ref2 = A.createRef();
+		final Vector3f ref3 = A.createRef();
+
+		System.out.println( "A size: " + A.size() );
 
 		final int size = A.size();
 		for ( int i = 0; i < size; ++i )
 		{
-			final Vertex3 a = A.get( i, ref1 );
-			final Vertex3 b = B.get( i, ref2 );
-			final Vertex3 c = C.get( i, ref3 );
+			final Vector3f a = A.get( i, ref1 );
+			final Vector3f b = B.get( i, ref2 );
+			final Vector3f c = C.get( i, ref3 );
+			System.out.println( "A: " + a + " B: " + b + " C: " + c );
 			for ( int d = 0; d < 3; ++d )
 				c.setDoublePosition( a.getDoublePosition( d ) + b.getDoublePosition( d ), d );
 		}
