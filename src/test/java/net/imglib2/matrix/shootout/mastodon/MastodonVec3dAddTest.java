@@ -2,7 +2,9 @@ package net.imglib2.matrix.shootout.mastodon;
 
 import net.imglib2.matrix.shootout.AbstractVec3dAddTest;
 import net.imglib2.matrix.shootout.Vec3dBuffer;
+import org.mastodon.collection.RefCollections;
 import org.mastodon.collection.RefList;
+import org.mastodon.collection.ref.RefArrayList;
 
 public class MastodonVec3dAddTest extends AbstractVec3dAddTest
 {
@@ -29,17 +31,28 @@ public class MastodonVec3dAddTest extends AbstractVec3dAddTest
 //		}
 
 		// or this ...
-		final RefList< Vector3d > A = new Vector3dPool( bufA.getBytes() ).asList();
-		final RefList< Vector3d > B = new Vector3dPool( bufB.getBytes() ).asList();
-		final RefList< Vector3d > C = new Vector3dPool( bufC.getBytes() ).asList();
+		final Vector3dPool poolA = new Vector3dPool( bufA.getBytes() );
+		final Vector3dPool poolB = new Vector3dPool( bufB.getBytes() );
+		final Vector3dPool poolC = new Vector3dPool( bufC.getBytes() );
+		final RefList< Vector3d > A = poolA.asList();
+		final RefList< Vector3d > B = poolB.asList();
+		final RefList< Vector3d > C = poolC.asList();
 
 		final Vector3d ref1 = A.createRef();
 		final Vector3d ref2 = A.createRef();
 		final Vector3d ref3 = A.createRef();
 
+		final RefList< Vector3d > as = new RefArrayList<>( poolA );
+		final RefList< Vector3d > bs = new RefArrayList<>( poolB );
+
 		final int size = A.size();
 		for ( int i = 0; i < size; ++i )
-			C.get( i, ref3 ).add( A.get( i, ref1 ), B.get( i, ref2 ) );
+		{
+			as.add( A.get( i, ref1 ) );
+			bs.add( B.get( i, ref2 ) );
+		}
+		for ( int i = 0; i < size; ++i )
+			C.get( i, ref3 ).add( as.get( i, ref1 ), bs.get( i, ref2 ) );
 //		for ( int i = 0; i < size; ++i )
 //		{
 //			final Vector3d a = A.get( i, ref1 );

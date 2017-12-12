@@ -1,6 +1,7 @@
 package net.imglib2.matrix.shootout;
 
 import java.nio.DoubleBuffer;
+import java.util.ArrayList;
 import org.joml.Vector3d;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
@@ -60,13 +61,15 @@ public class JOMLVec3dAddBenchmark
 	@Benchmark
 	public void benchmark()
 	{
-		bufferA.rewind();
-		bufferB.rewind();
-		bufferC.rewind();
+		final ArrayList< Vector3d > as = new ArrayList<>();
+		final ArrayList< Vector3d > bs = new ArrayList<>();
+		for(int i = 0; i < size; i++)
+		{
+			as.add( fromBuffer( bufferA, i ) );
+			bs.add( fromBuffer( bufferB, i ) );
+		}
 		for(int i = 0; i < size; i++) {
-			final Vector3d a = fromBuffer( bufferA, i );
-			final Vector3d b = fromBuffer( bufferB, i );
-			final Vector3d c = new Vector3d().set(a.add(b));
+			final Vector3d c = new Vector3d().set(as.get(i).add(bs.get(i)));
 			toBuffer(c, bufferC, i);
 		}
 	}
