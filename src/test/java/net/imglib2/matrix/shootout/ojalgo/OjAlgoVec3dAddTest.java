@@ -9,7 +9,6 @@ public class OjAlgoVec3dAddTest extends AbstractVec3dAddTest
 	@Override
 	public void addAsVec3( final Vec3dBuffer bufA, final Vec3dBuffer bufB, final Vec3dBuffer bufC )
 	{
-
 		final OjAlgoVectorView a = new OjAlgoVectorView( bufA.getDoubles(), Vec3dBuffer.vlen );
 		final OjAlgoVectorView b = new OjAlgoVectorView( bufB.getDoubles(), Vec3dBuffer.vlen );
 		final OjAlgoVectorView c = new OjAlgoVectorView( bufC.getDoubles(), Vec3dBuffer.vlen );
@@ -20,8 +19,7 @@ public class OjAlgoVec3dAddTest extends AbstractVec3dAddTest
 			a.setIndex( i );
 			b.setIndex( i );
 			c.setIndex( i );
-			for ( int k = 0; k < nDim; ++k )
-				c.set( k, a.doubleValue( k ) + b.doubleValue( k ) );
+			c.add( a, b );
 		}
 	}
 }

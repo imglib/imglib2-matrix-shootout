@@ -39,13 +39,14 @@ public class MastodonVec3dAddTest extends AbstractVec3dAddTest
 
 		final int size = A.size();
 		for ( int i = 0; i < size; ++i )
-		{
-			final Vector3d a = A.get( i, ref1 );
-			final Vector3d b = B.get( i, ref2 );
-			final Vector3d c = C.get( i, ref3 );
-			for ( int d = 0; d < 3; ++d )
-				c.setPosition( a.getDoublePosition( d ) + b.getDoublePosition( d ), d );
-		}
-
+			C.get( i, ref3 ).add( A.get( i, ref1 ), B.get( i, ref2 ) );
+//		for ( int i = 0; i < size; ++i )
+//		{
+//			final Vector3d a = A.get( i, ref1 );
+//			final Vector3d b = B.get( i, ref2 );
+//			final Vector3d c = C.get( i, ref3 );
+//			for ( int d = 0; d < 3; ++d )
+//				c.setPosition( a.getDoublePosition( d ) + b.getDoublePosition( d ), d );
+//		}
 	}
 }

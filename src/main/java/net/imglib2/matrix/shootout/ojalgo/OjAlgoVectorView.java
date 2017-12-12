@@ -26,6 +26,11 @@ public class OjAlgoVectorView implements Access1D< Double >, Mutate1D
 		this.offset = 0;
 	}
 
+	public void add( Access1D< Double > x, Access1D< Double > y )
+	{
+		loopAll( i -> set( i, x.get( i ) + y.get( i ) ) );
+	}
+
 	public void setIndex( final int index )
 	{
 		this.offset = nDim * index;
