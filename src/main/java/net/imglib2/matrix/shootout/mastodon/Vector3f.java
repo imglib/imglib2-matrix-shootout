@@ -42,6 +42,13 @@ public class Vector3f extends PoolObject<Vector3f, Vector3fPool, BufferMappedEle
 	protected void setToUninitializedState()
 	{}
 
+	public void add( Vector3f a, Vector3f b )
+	{
+		setX( a.getX() + b.getX() );
+		setY( a.getY() + b.getY() );
+		setZ( a.getZ() + b.getZ() );
+	}
+
 	public float getX()
 	{
 		return position.get( 0 );
@@ -51,17 +58,17 @@ public class Vector3f extends PoolObject<Vector3f, Vector3fPool, BufferMappedEle
 	{
 		pool.position.setQuiet( this, 0, x );
 	}
-	
+
 	public float getY()
 	{
 		return position.get( 1 );
 	}
-	
+
 	public void setY( final float y)
 	{
 		pool.position.setQuiet( this, 1, y );
 	}
-	
+
 	public float getZ()
 	{
 		return position.get( 2 );
@@ -72,7 +79,7 @@ public class Vector3f extends PoolObject<Vector3f, Vector3fPool, BufferMappedEle
 		pool.position.setQuiet( this, 2, z );
 	}
 
-	
+
 	@Override
 	public String toString()
 	{

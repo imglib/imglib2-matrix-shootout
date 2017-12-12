@@ -1,9 +1,7 @@
 package net.imglib2.matrix.shootout;
 
-import net.imglib2.matrix.shootout.mastodon.Vector3d;
-import net.imglib2.matrix.shootout.mastodon.Vector3dPool;
-import net.imglib2.matrix.shootout.ojalgo.OjAlgoVectorView;
-import org.mastodon.collection.RefList;
+import java.nio.DoubleBuffer;
+import org.joml.Vector3d;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
@@ -15,7 +13,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
 
 @State( Scope.Benchmark )
-public class MastodonVec3dAddBenchmark
+public class JOMLVec3dAddBenchmark
 {
 	private static final int size = 1000;
 
@@ -25,13 +23,7 @@ public class MastodonVec3dAddBenchmark
 
 	private final Vec3dBuffer bufC;
 
-	private RefList< Vector3d > A;
-
-	private RefList< Vector3d > B;
-
-	private RefList< Vector3d > C;
-
-	public MastodonVec3dAddBenchmark()
+	public JOMLVec3dAddBenchmark()
 	{
 		bufA = new Vec3dBuffer( size );
 		bufB = new Vec3dBuffer( size );
@@ -40,29 +32,49 @@ public class MastodonVec3dAddBenchmark
 		bufB.fillRandom();
 	}
 
+	private DoubleBuffer bufferA;
+
+	private DoubleBuffer bufferB;
+
+	private DoubleBuffer bufferC;
 
 	@Setup
 	public void setup()
 	{
-		A = new Vector3dPool( bufA.getBytes() ).asList();
-		B = new Vector3dPool( bufB.getBytes() ).asList();
-		C = new Vector3dPool( bufC.getBytes() ).asList();
+		bufferA = bufA.getDoubles();
+		bufferB = bufB.getDoubles();
+		bufferC = bufC.getDoubles();
+	}
+
+	public Vector3d fromBuffer( DoubleBuffer buf, int pos )
+	{
+		buf.position(pos * 3);
+		return new Vector3d().set(buf);
+	}
+	public void toBuffer( Vector3d v, DoubleBuffer buf, int pos )
+	{
+		buf.position(pos * 3);
+		v.get(buf);
 	}
 
 	@Benchmark
 	public void benchmark()
 	{
-		final Vector3d ref1 = A.createRef();
-		final Vector3d ref2 = A.createRef();
-		final Vector3d ref3 = A.createRef();
-		for ( int i = 0; i < size; ++i )
-			C.get( i, ref3 ).add( A.get( i, ref1 ), B.get( i, ref2 ) );
+		bufferA.rewind();
+		bufferB.rewind();
+		bufferC.rewind();
+		for(int i = 0; i < size; i++) {
+			final Vector3d a = fromBuffer( bufferA, i );
+			final Vector3d b = fromBuffer( bufferB, i );
+			final Vector3d c = new Vector3d().set(a.add(b));
+			toBuffer(c, bufferC, i);
+		}
 	}
 
 	public static void main( final String... args ) throws RunnerException
 	{
 		final Options opt = new OptionsBuilder()
-				.include( MastodonVec3dAddBenchmark.class.getSimpleName() )
+				.include( JOMLVec3dAddBenchmark.class.getSimpleName() )
 				.forks( 0 )
 				.warmupIterations( 10 )
 				.measurementIterations( 20 )

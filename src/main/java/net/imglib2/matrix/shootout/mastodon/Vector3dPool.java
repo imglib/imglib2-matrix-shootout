@@ -14,13 +14,13 @@ public class Vector3dPool extends Pool< Vector3d, BufferMappedElement >
 	final DoubleArrayAttribute< Vector3d > position;
 
 //	static final Vector3dLayout layout = new Vector3dLayout();
-	final Vector3dLayout layout;
+	final Vector3dLayout layout = new Vector3dLayout();
 
 	public Vector3dPool( final ByteBuffer byteBuffer )
 	{
 //		super( 0, layout, Vector3d.class, BufferMappedElementArray.wrappingMemPoolFactory( byteBuffer ) );
 		super( 0, new Vector3dLayout(), Vector3d.class, BufferMappedElementArray.wrappingMemPoolFactory( byteBuffer ) );
-		layout = new Vector3dLayout();
+
 		position = new DoubleArrayAttribute<>( layout.position, this );
 	}
 

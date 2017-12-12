@@ -12,7 +12,7 @@ import java.nio.FloatBuffer;
  *
  * @author Ulrik Günther <hello@ulrik.is>
  */
-public class ClearGLVec3dAddTest extends AbstractVec3fAddTest {
+public class ClearGLVec3fAddTest extends AbstractVec3fAddTest {
   @Override
   public void addAsVec3(Vec3fBuffer bufA, Vec3fBuffer bufB, Vec3fBuffer bufC) {
     final int size = bufA.getFloats().remaining()/3;
