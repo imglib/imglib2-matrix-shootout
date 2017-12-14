@@ -21,14 +21,10 @@ public class JOMLVec3fAddTest extends AbstractVec3fAddTest {
     final FloatBuffer bufferC = bufC.getFloats();
 
     for(int i = 0; i < size; i++) {
-      final Vector3f a = new Vector3f().set(bufferA);
-      final Vector3f b = new Vector3f().set(bufferB);
+      final Vector3f a = new Vector3f().set(i*3, bufferA);
+      final Vector3f b = new Vector3f().set(i*3, bufferB);
 
-      new Vector3f().set(a.add(b)).get(bufferC);
-
-      bufferA.position(bufferA.position()+3);
-      bufferB.position(bufferB.position()+3);
-      bufferC.position(bufferC.position()+3);
+      new Vector3f().set(a.add(b)).get(i*3, bufferC);
     }
   }
 }

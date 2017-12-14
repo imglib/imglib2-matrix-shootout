@@ -48,21 +48,16 @@ public class JOMLVec3dAddBenchmark
 
 	public Vector3d fromBuffer( DoubleBuffer buf, int pos )
 	{
-		buf.position(pos * 3);
-		return new Vector3d().set(buf);
+		return new Vector3d().set(pos * 3, buf);
 	}
 	public void toBuffer( Vector3d v, DoubleBuffer buf, int pos )
 	{
-		buf.position(pos * 3);
-		v.get(buf);
+		v.get(pos * 3, buf);
 	}
 
 	@Benchmark
 	public void benchmark()
 	{
-		bufferA.rewind();
-		bufferB.rewind();
-		bufferC.rewind();
 		for(int i = 0; i < size; i++) {
 			final Vector3d a = fromBuffer( bufferA, i );
 			final Vector3d b = fromBuffer( bufferB, i );
